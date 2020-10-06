@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gs-spring-boot
+  name: gs-spring-boot
+  namespace: hpe-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: gs-spring-boot
+  template:
+    metadata:
+      labels:
+        name: gs-spring-boot
+    spec:
+      containers:
+      - name: gs-spring-boot
+        image: image-registry.openshift-image-registry.svc:5000/hpe-test/gs-spring-boot:0.0.1
+        ports:
+        - containerPort: 8080
+        - containerPort: 9100
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 3

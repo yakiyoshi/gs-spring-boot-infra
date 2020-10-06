@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: gs-spring-boot
+  name: gs-spring-boot-metrics
+  namespace: hpe-test
+spec:
+  ports:
+  - name: metrics
+    port: 9100
+    protocol: TCP
+    targetPort: 9100
+  selector:
+    name: gs-spring-boot
+  type: ClusterIP
