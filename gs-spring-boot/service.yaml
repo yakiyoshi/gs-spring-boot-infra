@@ -11,6 +11,10 @@ spec:
     port: 8080
     protocol: TCP
     targetPort: 8080
+  - name: metrics
+    port: 9100
+    protocol: TCP
+    targetPort: 9100
   selector:
     name: gs-spring-boot
   type: ClusterIP
